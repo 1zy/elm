@@ -64,12 +64,10 @@
         },
         computed: {
             currentIndex() {
-                console.log(this.scrollY);
                 for (var i=0;i<this.listHeight.length;i++) {
                     let height1 = this.listHeight[i];
                     let height2 = this.listHeight[i + 1];
                     if (!height2 || (this.scrollY >= height1 && this.scrollY < height2)) {
-                        console.log(i);
                         return i;
                     }
                 }
@@ -98,7 +96,6 @@
                 let foodList = this.$els.foodsWrapper.getElementsByClassName('food-list-hook');
                 let el=foodList[index];
                 this.foodScroll.scrollToElement(el, 300);
-                console.log(el);
             },
             _initScroll() {
                 this.meunScroll = new BScroll(this.$els.menuWrapper, {click: true});
