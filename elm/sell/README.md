@@ -333,3 +333,33 @@ this.foodScroll.scrollToElement(el, 300);
         },
     Vue.set(this.food,'count',1)
 5.transfrom:translate3D(0,0,0) 使动画更加流畅
+
+#购物车小球动画 
+#(将子组件的元素传递给父组件，在将父组件的调用子组件的方法)
+1.在shopcart.vue写小球的样式,设置小球需要若干个小球，所以需要一个数组，在data中设置一个balls的数组
+   data() {
+           return {
+               balls: [
+                   {
+                       show:false
+                   }
+               ]
+           }
+        },
+2.在cartcontrol.vue中设置   
+this.$dispatch('cart.add',event.target)
+3.在good.vue中设置事件
+     events: {
+            // 调用子组件的方法
+            'cart.add'(target) {
+               this._drop(target);
+            }
+         }
+    并且在method中定义方法
+     _drop(target) {
+                
+            },
+4.父组件拿到子组件的元素
+v-ref
+<shopcart v-ref:shopcart >  在组件中设置
+ this.$refs.shopcart 在methods中设置

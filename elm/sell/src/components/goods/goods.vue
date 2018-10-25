@@ -39,7 +39,7 @@
                </li>
            </ul>
         </div>
-        <shopcart :delivery-price="seller.deliveryPrice" :min-price="seller.minPrice" ></shopcart>
+        <shopcart v-ref:shopcart :delivery-price="seller.deliveryPrice" :min-price="seller.minPrice" ></shopcart>
    </div>
 </template>
 
@@ -100,6 +100,12 @@
                 this.foodScroll.scrollToElement(el, 300);
                 console.log(el);
             },
+            _drop(target) {
+                // 处理第一点击时动画卡顿的情况（同时运行两个动画）异步执行下落动画
+                this.$nextTick(() => {
+                    this.$refs.shopcart.drop(target);
+                });
+            },
             _initScroll() {
                 this.meunScroll = new BScroll(this.$els.menuWrapper, {click: true});
                 this.foodScroll = new BScroll(this.$els.foodsWrapper, {
@@ -124,8 +130,13 @@
          components: {
              shopcart,
              cartcontrol
+         },
+         events: {
+            // 调用子组件的方法
+            'cart.add'(target) {
+               this._drop(target);
+            }
          }
-
         };
 </script>
 
