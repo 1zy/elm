@@ -11,6 +11,16 @@ border-1px($color)
 border-none()
    &:after
       display:none
+border-right-1px($color)
+    position: relative
+    &:after
+      display:block
+      position:absolute
+      top:0
+      right:0
+      height :100%
+      border-right:1px solid $color
+      content:' '
    
 bg-image($url)
    background-image:url($url+"@2x.png")

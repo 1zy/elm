@@ -170,7 +170,7 @@ vertical-align:top 顶部对齐
  可以通过v-show进行显示合隐藏
  @click点击事件
  在methods:{}中定义事件
- 1. <div  @click="showDetail"> 定义点击事件
+ 1.<div  @click="showDetail"> 定义点击事件
  2.<div class="detail" v-show="detailShow"></div> 点击事件执行的元素
  3.定义点击事件所要改变的字段 
  data() {
@@ -231,7 +231,7 @@ vertical-align:top 顶部对齐
   components: {
             star
         }
-4.   <div class="star-wrapper">   //:size和：score就是传递给props中的值
+4.  <div class="star-wrapper">   //:size和：score就是传递给props中的值
         <star :size="48" :score="seller.score"></star>
     </div>
 
@@ -312,16 +312,16 @@ this.foodScroll.scrollToElement(el, 300);
  #购物车组件
  1.使用IE盒子模型
       width:56px
-              height:56px
-              box-box-sizing:border-box 
+      height:56px
+      box-box-sizing:border-box 
 2.使用router传参
  <router-view :seller="seller"></router-view>
- 在router-view中将参数传入从使router条辉煌的组件可以获取参数
+ 在router-view中将参数传入从使router选择的组件可以获取参数
    selectFoods: {
         type: Array,
         default() {}  //在vue中如果props是Array或者object那么default是一个函数
       },
-3.在组件中引用组件需要将其click属性设置为true
+3.在组件中引用组件需要将其click属性设置为true(因为better-scroll会将原来的事件阻止掉)
  this.foodScroll = new BScroll(this.$els.foodsWrapper, {
                     probeType: 3,
                     click: true
@@ -334,6 +334,7 @@ this.foodScroll.scrollToElement(el, 300);
     Vue.set(this.food,'count',1)
 5.transfrom:translate3D(0,0,0) 使动画更加流畅
 
+<<<<<<< Updated upstream
 #购物车小球动画 
 #(将子组件的元素传递给父组件，在将父组件的调用子组件的方法)
 1.在shopcart.vue写小球的样式,设置小球需要若干个小球，所以需要一个数组，在data中设置一个balls的数组
@@ -363,3 +364,8 @@ this.$dispatch('cart.add',event.target)
 v-ref
 <shopcart v-ref:shopcart >  在组件中设置
  this.$refs.shopcart 在methods中设置
+=======
+
+6.在Vue生命周期的created()钩子函数进行的DOM操作一定要放在Vue.nextTick()的回调函数中
+在created()钩子函数执行的时候DOM 其实并未进行任何渲染，而此时进行DOM操作无异于徒劳，所以此处一定要将DOM操作的js代码放进Vue.nextTick()的回调函数中。与之对应的就是mounted()钩子函数，因为该钩子函数执行时所有的DOM挂载和渲染都已完成，此时在该钩子函数中进行任何DOM操作都不会有问题
+>>>>>>> Stashed changes
