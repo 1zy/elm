@@ -334,7 +334,6 @@ this.foodScroll.scrollToElement(el, 300);
     Vue.set(this.food,'count',1)
 5.transfrom:translate3D(0,0,0) 使动画更加流畅
 
-<<<<<<< Updated upstream
 #购物车小球动画 
 #(将子组件的元素传递给父组件，在将父组件的调用子组件的方法)
 1.在shopcart.vue写小球的样式,设置小球需要若干个小球，所以需要一个数组，在data中设置一个balls的数组
@@ -364,8 +363,5 @@ this.$dispatch('cart.add',event.target)
 v-ref
 <shopcart v-ref:shopcart >  在组件中设置
  this.$refs.shopcart 在methods中设置
-=======
 
-6.在Vue生命周期的created()钩子函数进行的DOM操作一定要放在Vue.nextTick()的回调函数中
-在created()钩子函数执行的时候DOM 其实并未进行任何渲染，而此时进行DOM操作无异于徒劳，所以此处一定要将DOM操作的js代码放进Vue.nextTick()的回调函数中。与之对应的就是mounted()钩子函数，因为该钩子函数执行时所有的DOM挂载和渲染都已完成，此时在该钩子函数中进行任何DOM操作都不会有问题
->>>>>>> Stashed changes
+#购物车详情页
