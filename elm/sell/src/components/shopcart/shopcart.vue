@@ -23,7 +23,7 @@
                 <div class="inner inner-hook" ></div>
             </div>
         </div>
-        <div class="shopcart-list" transition="fold" v-show="fold">
+        <div class="shopcart-list" transition="fold" v-show="listShow">
              <div class="list-header">
                   <h1 class="title">购物车</h1>
                   <div class="empty">清空</div>
@@ -110,7 +110,7 @@
           return;
         }
         this.fold = !this.fold;
-         console.log(this.fold);
+         console.log('aaaa');
       }
     },
     transitions: {
@@ -202,6 +202,7 @@
         let show = !this.fold;
           if (show) {
           this.$nextTick(() => {
+           console.log(this.$els.listContent);
             if (!this.scroll) {
               this.scroll = new BScroll(this.$els.listContent, {
                 click: true
@@ -328,7 +329,7 @@
           &.fold-transition
             transition: all 0.5s
             transform:translate3d(0,-100%,0)
-          &.fold-enter,&fold-leave
+          &.fold-enter,&.fold-leave
             transform:translate3d(0,0,0)
           .list-header
              height:40px
