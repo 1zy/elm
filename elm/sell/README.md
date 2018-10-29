@@ -365,3 +365,4 @@ v-ref
  this.$refs.shopcart 在methods中设置
 
 #购物车详情页
+ @click.stop.prevent 在vue中阻止事件冒泡
