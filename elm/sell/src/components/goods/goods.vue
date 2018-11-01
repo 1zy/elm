@@ -10,11 +10,11 @@
             </ul>
         </div>
         <div class="foods-wrapper" v-el:foods-wrapper>
-           <ul>
+           <ul>                                                                  
                <li v-for="item in goods" class="food-list food-list-hook">
                     <h1 class="title">{{item.name}}</h1>
                     <ul>
-                       <li v-for="food in item.foods" class="food-item border-1px">
+                       <li v-for="food in item.foods" class="food-item border-1px"  @click=" selectedFoodDetail(food, $event) ">
                             <div class="icon">
                                  <img :src="food.icon" width="57" height="57">
                             </div>
@@ -39,14 +39,18 @@
                </li>
            </ul>
         </div>
-        <shopcart :select-foods='selectFoods' v-ref:shopcart :delivery-price="seller.deliveryPrice" :min-price="seller.minPrice" ></shopcart>
+        <div class="shopcartWrapper">
+           <shopcart :select-foods='selectFoods' v-ref:shopcart :delivery-price="seller.deliveryPrice" :min-price="seller.minPrice" ></shopcart>
+        </div>
    </div>
+   <food :food="selectedFood" v-ref:food></food>
 </template>
 
 <script type="text/ecmascript-6">
     import BScroll from 'better-scroll';
     import shopcart from '../shopcart/shopcart.vue';
     import cartcontrol from '../cartcontrol/cartcontrol.vue';
+    import food from '../food/food.vue';
     
     const ERR_OK = 0;
     export default {
@@ -59,7 +63,8 @@
             return {
                 goods: [],
                 listHeight: [],
-                scrollY: 0
+                scrollY: 0,
+                selectedFood: {}
             };
         },
         computed: {
@@ -109,6 +114,14 @@
                 let el=foodList[index];
                 this.foodScroll.scrollToElement(el, 300);
             },
+            selectedFoodDetail(food, event) {
+                console.log(food);
+                if (!event._constructed) {
+                      return;
+                   }
+               this.selectedFood = food;
+               this.$refs.food.show();
+            },
             _drop(target) {
                 // 处理第一点击时动画卡顿的情况（同时运行两个动画）异步执行下落动画
                 this.$nextTick(() => {
@@ -138,8 +151,9 @@
          },
          components: {
              shopcart,
-             cartcontrol
-         },
+             cartcontrol,
+             food
+           },
          events: {
             // 调用子组件的方法
             'cart.add'(target) {
@@ -253,7 +267,8 @@
                position :absolute
                bottom:12px
                right:0
-
+     .shopcartWrapper
+        z-index:999
 </style>
 
 

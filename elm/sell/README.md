@@ -366,3 +366,13 @@ v-ref
 
 #购物车详情页
  @click.stop.prevent 在vue中阻止事件冒泡
+
+#商品详情页
+1.在good.vue中将selectFood作为data的数据作为该vue文件的数据
+2. <li v-for="item in goods" class="food-list food-list-hook" @click="selectFood(food,$event)">
+将商品参数和$event节点（点击的li这个节点）传入
+3.父组件可以调用子组件的方法，子组件不能调用父组件的方法
+4.方法名命名1.如果是组件内部使用的_开头，可以被调用的不加_
+//获取子组件方法
+1.v-ref:food
+2. this.$ref.food.show()  //这样就可以执行子组件的show方法
