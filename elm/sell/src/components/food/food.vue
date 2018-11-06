@@ -17,12 +17,21 @@
                       <span class="now">￥{{food.price}}</span>
                       <span class="old" v-show="food.oldPrice">￥{{food.oldPrice}}</span>
                   </div>
-              </div>
-              <div class="cartcontrol-wrap">
+                    <div class="cartcontrol-wrap">
                   <cartcontrol :food="food"></cartcontrol>
               </div>
-              <div class="buy" transition="fade" @click="addFirst" v-show="!food.count || food.count === 0">加入购物车</div>
-
+              <div class="buy" transition="fade" @click.stop.prevent="addFirst" v-show="!food.count || food.count === 0">加入购物车</div>
+              </div>
+          </div>
+          <split v-show="food.info"></split>
+          <div class="info" v-show="food.info">
+              <h1 class="title">商品信息</h1>
+              <p class="text">{{food.info}}</p>
+          </div>
+          <split></split>
+          <div class="rating" style="padding-bottom:50px">
+              <h1 class="title">商品评价</h1>
+              <ratingselect :select-type="selectType" :only-content="onlyContent" :desc="desc" :ratings="food.retings"></ratingselect>
           </div>
      </div>
 </template>
@@ -31,6 +40,13 @@
    import BScoll from "better-scroll";
    import Vue from "vue";
    import cartcontrol from "../cartcontrol/cartcontrol.vue";
+   import split from "../split/split.vue";
+   import ratingselect from "../ratingselect/ratingselect.vue";
+    
+    const POSITIVE = 0;
+    const NEGATIVE = 1;
+    const ALL = 2;
+
     export default {
         props: {
             food: {
@@ -39,12 +55,21 @@
         },
         data() {
             return {
-                showFlag: false
+                showFlag: false,
+                selectType: ALL,
+                onlyContent: true,
+                desc: {
+                    all: '全部',
+                    positive: '推荐',
+                    negative: '吐槽'
+                }
             }
         },
         methods: {
             show() {
                 this.showFlag = true;
+                this.selectType = ALL;
+                this.onlyContent = false;
                 this.$nextTick(() => {
                    if (!this.scroll) {
                        this.scroll = new BScoll(this.$els.food, {
@@ -58,23 +83,26 @@
             hide() {
                 this.showFlag = false;
             },
-            addFirst() {
+            addFirst(event) {
               if (!event._constructed) {
                   return;
               }
-              this.$dispatch('card.add',event.target);
-              Vue.set(this.food,"count",1)
+               Vue.set(this.food,"count",1)
+               this.$dispatch('card-add',event.target);
+               
             }
         },
        components: {
-         cartcontrol
+         cartcontrol,
+         split,
+         ratingselect
        } 
     };
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
     .food 
-       position: fixed
+       position: absolute
        left: 0
        top: 0
        z-index: 300
@@ -108,6 +136,7 @@
               color:#fff
        .content
           padding:18px
+          position:relative
           .title
              line-height:14px
              margin-bottom:8px
@@ -135,27 +164,46 @@
                 text-decoration:line-through
                 font-size:10px
                 color:rgb(147,153,159)  
-       .cartcontrol-wrap
-          position: absolute
-          right:12px
-          bottom :12px
-       .buy 
-           position:absolute
-           right:18px
-           bottom:18px
-           z-index:10
-           height: 24px
-           line-height:24px
-           padding:0 12px
-           box-sizing:border-box
-           font-size:10px
-           border-radius: 12px
-           color:#fff
-           background:rgb(0,160,220)
-           &.fade-transition
-               transition:all 0.2s
-               opacity :1
-           &.fade-enter,&.fade-leave
-               opacity :0
+           .cartcontrol-wrap
+              position: absolute
+              right:12px
+              bottom :12px
+           .buy 
+               position:absolute
+               right:18px
+               bottom:18px
+               z-index:10
+               height: 24px
+               line-height:24px
+               padding:0 12px
+               box-sizing:border-box
+               font-size:10px
+               border-radius: 12px
+               color:#fff
+               background:rgb(0,160,220)
+               &.fade-transition
+                 transition:all 0.2s
+                 opacity :1
+               &.fade-enter,&.fade-leave
+                 opacity :0
+       .info
+          padding:18px
+          .title
+             line-height :14px
+             margin-bottom:6px
+             font-size:14px
+             color:rgb(7,17,27)
+          .text
+             line-height :24px
+             padding:0 8px
+             font-size:12px
+             color:rgb(77,85,93)
+        .rating
+           padding-top:18px
+           .title            
+              line-height :14px
+              margin-left:18px
+              font-size:14px   
+              color:rgb(7,17,27)          
 </style>
 
