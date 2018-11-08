@@ -380,3 +380,14 @@ v-ref
 
 #派发事件
 1.从子组件派发一个事件父组件可以监听
+
+#events
+将子组件的状态改变传递给父组件
+
+#调用js中的方法
+1.在js文件中export
+export  function formaDate ()
+2.import {formatDate} from '../common/js/date'
+在需要调用该函数的文件中{函数名}引入 
+不带{}是export default 所输出的
+带{}是export 所输出的
