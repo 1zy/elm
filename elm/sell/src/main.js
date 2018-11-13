@@ -30,4 +30,4 @@ router.map({
 // 将router运行在app文件的app节点上
 router.start(app, '#app');
 
-router.go('/goods');
+// router.go('/goods');
