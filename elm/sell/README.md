@@ -391,3 +391,5 @@ export  function formaDate ()
 在需要调用该函数的文件中{函数名}引入 
 不带{}是export default 所输出的
 带{}是export 所输出的
+
+# Object.assign({}, this.seller, response.data);
