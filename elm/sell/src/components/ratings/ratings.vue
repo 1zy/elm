@@ -41,7 +41,7 @@
                           <p class="text">{{rating.text}}</p>
                           <div class="recommend" v-show="rating.recommend.length">
                              <span class="icon-thumb_up"></span>
-                             <span class="item" v-for="item in rating.recommend">{{item}}</span>
+                             <span class="item" v-for="item in rating.recommend" :key="item">{{item}}</span>
                           </div>
                           <div class="time">{{rating.rateTime|formatDate}}</div>
                        </div>
@@ -76,7 +76,7 @@
         created() {
           this.$http.get('/api/ratings').then((response) => {
                response = response.body;
-               if (response.erron === ERR_OK) {
+               if (response.errno === ERR_OK) {
                    this.ratings = response.data;
                    this.$nextTick(() => {
                         this.scroll = new BScroll(this.$els.ratings, {

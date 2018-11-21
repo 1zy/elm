@@ -28,7 +28,7 @@ For detailed explanation on how things work, checkout the [guide](http://vuejs-t
 
 
 
-# 1定义一个路由
+# 1定义一个路由在dev-server中
 var apiRoutes = express.Router()
 # 2定义路由的入口
 apiRoutes.get('/seller',function(req,res){

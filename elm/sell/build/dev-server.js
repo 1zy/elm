@@ -8,7 +8,7 @@ var webpackConfig = process.env.NODE_ENV === 'testing'
   : require('./webpack.dev.conf')
 
 // default port where dev server listens for incoming traffic
- var port = 8001 //process.env.PORT || config.dev.port
+ var port = process.env.PORT || config.dev.port
 //var port="8080"
 // Define HTTP proxies to your custom API backend
 // https://github.com/chimurai/http-proxy-middleware
@@ -32,13 +32,13 @@ apiRoutes.get('/seller',function(req,res){
 })
 apiRoutes.get('/goods',function(req,res){
   res.json({
-    erron:0,
+    errno:0,
     data:goods
   })
 })
 apiRoutes.get('/ratings',function(req,res){
   res.json({
-    erron:0,
+    errno:0,
     data:ratings
   })
 })

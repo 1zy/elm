@@ -18,13 +18,22 @@ let router = new VueRouter({
 
 router.map({
   '/goods': {
-     component: goods
+     component: goods,
+     meta: {
+       keepAlive: true
+     }
     },
   '/ratings': {
-     component: ratings
+     component: ratings,
+     meta: {
+      keepAlive: true
+    }
     },
   '/seller': {
-     component: seller
+     component: seller,
+     meta: {
+      keepAlive: true
+    }
   }
 });
 // 将router运行在app文件的app节点上
