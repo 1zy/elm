@@ -97,8 +97,8 @@
         },
         created() {
             this.classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee'];
-
-            this.$http.get('/api/goods').then((response) => {
+            //将$http更改为$axios即使用vue-axios来调用
+            this.$axios.get('/api/goods').then((response) => {
                 response = response.data;
                 if (response.errno === ERR_OK) {
                     this.goods = response.data;

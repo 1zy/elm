@@ -35,14 +35,15 @@
           };
       },
       created() {
-         this.$http.get('/api/seller?id='+this.seller.id).then((response) => {
-            response = response.data;
-             console.log(response);
-            if (response.errno === ERR_OK) {
-                this.seller = Object.assign({}, this.seller, response.data);
-                console.log(this.seller);
-            }
-            });
+        this.$axios.get('/api/seller?id='+this.seller.id)
+            .then((response) => {
+                response = response.data;
+                console.log(response);
+                if (response.errno === ERR_OK) {
+                    this.seller = Object.assign({}, this.seller, response.data);
+                    console.log(this.seller);
+                }
+            })
       },
       components: {
           'v-header': header

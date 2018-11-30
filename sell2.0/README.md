@@ -130,3 +130,16 @@ vue2.0变化
 #vue2.0router的配置改变
 在router的文件中
 对应的路由配置在webpack.dev.config中进行配置
+
+#vue-axios在页面编写
+1、axios下的index.js：
+   /*引入Vue框架*/
+    import Vue from 'vue';
+    /*引入资源请求插件*/
+    import axios from 'axios';
+
+    /*使用axios插件*/
+    Vue.prototype.$axios = axios;
+    export default({
+    });
+2、src下的main.js，代码引入已经引用好的axios文件

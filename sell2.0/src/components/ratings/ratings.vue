@@ -74,7 +74,7 @@
             };
         },
         created() {
-          this.$http.get('/api/ratings').then((response) => {
+          this.$axios.get('/api/ratings').then((response) => {
                response = response.data;
                if (response.errno === ERR_OK) {
                    this.ratings = response.data;
